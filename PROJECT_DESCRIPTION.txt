@@ -1,0 +1,241 @@
+# AUI Clubs Management System - Project Description
+
+## 1. Project Overview
+
+The AUI Clubs Management System is a comprehensive full-stack web application designed to manage student clubs, memberships, events, budgets, and related activities at Al Akhawayn University. The system provides an intuitive user interface for administrators to perform CRUD (Create, Read, Update, Delete) operations on all club-related data, with real-time synchronization between the frontend and backend database.
+
+### Key Features
+
+- **Student Management**: Register and manage student information including personal details, majors, and class levels
+- **Club Management**: Create and manage clubs with categories (Academic, Cultural, Sports, Professional, Other) and status tracking
+- **Membership Management**: Track student memberships in clubs with role assignments (Member, Treasurer, Vice President, Secretary, President)
+- **Event Management**: Organize and track club events with date, location, type, and budget allocation
+- **Participation Tracking**: Monitor student attendance and participation in events
+- **Budget Management**: Track club budgets with allocated amounts, spending, and remaining balances
+- **Sponsor Management**: Manage club sponsors and their contact information
+- **Room Reservations**: Handle room booking for club events and meetings
+
+## 2. Technologies Used
+
+### Frontend Technologies
+
+- **React 18.3.1**: Modern JavaScript library for building user interfaces
+- **TypeScript**: Typed superset of JavaScript for enhanced code quality and maintainability
+- **Vite 6.3.5**: Fast build tool and development server
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+- **Radix UI**: Unstyled, accessible component primitives for building high-quality design systems
+- **React Context API**: State management for sharing data across components
+- **Lucide React**: Icon library for modern UI elements
+
+### Backend Technologies
+
+- **Node.js**: JavaScript runtime environment for server-side development
+- **Express.js 4.18.2**: Web application framework for building RESTful APIs
+- **MySQL2 3.6.5**: MySQL client for Node.js with promise support
+- **CORS 2.8.5**: Middleware for enabling Cross-Origin Resource Sharing
+- **dotenv 16.3.1**: Environment variable management
+
+### Database
+
+- **MySQL 8.0+**: Relational database management system
+- **Database Name**: `aui_clubs`
+- **Tables**: Student, Club, Membership, Event, Participation, Sponsor, Budget, RoomReservation
+
+### Development Tools
+
+- **Nodemon 3.0.2**: Development tool for auto-restarting server on file changes
+- **Vite**: Development server with Hot Module Replacement (HMR)
+
+## 3. System Architecture
+
+The application follows a three-tier architecture:
+
+1. **Presentation Layer**: React-based frontend providing user interface
+2. **Application Layer**: Express.js RESTful API handling business logic
+3. **Data Layer**: MySQL database storing persistent data
+
+### API Architecture
+
+The backend implements RESTful API endpoints for all entities:
+- Standard HTTP methods (GET, POST, PUT, DELETE)
+- JSON data format for request/response
+- Error handling with appropriate HTTP status codes
+- CORS enabled for cross-origin requests
+
+## 4. Installation and Setup
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- MySQL Server (v8.0 or higher)
+- npm or pnpm package manager
+
+### Step 1: Install Dependencies
+
+```bash
+npm install
+# or
+pnpm install
+```
+
+### Step 2: Database Setup
+
+1. Ensure MySQL server is running on your system
+2. Create the database by running the SQL initialization script:
+
+```bash
+mysql -u root -p < mohamed_amine_aouragh_final_implimentation_init.sql
+```
+
+Alternatively, you can manually execute the SQL script using MySQL Workbench or command line:
+- Open MySQL command line: `mysql -u root -p`
+- Run the script: `source mohamed_amine_aouragh_final_implimentation_init.sql`
+
+This will create the `aui_clubs` database with all required tables, constraints, and sample data.
+
+### Step 3: Configure Environment Variables
+
+1. Navigate to the `server` directory
+2. Create a `.env` file (you can copy from `env.example`):
+
+```bash
+cd server
+cp env.example .env
+```
+
+3. Edit the `.env` file with your database credentials:
+
+```env
+DB_HOST=localhost
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_NAME=aui_clubs
+PORT=5001
+```
+
+### Step 4: Run the Application
+
+The application requires two servers to run simultaneously:
+
+**Terminal 1 - Backend Server:**
+```bash
+npm run server
+# or for development with auto-reload:
+npm run dev:server
+```
+
+The backend server will start on `http://localhost:5001`
+
+**Terminal 2 - Frontend Development Server:**
+```bash
+npm run dev
+# or
+pnpm run dev
+```
+
+The frontend will start on `http://localhost:3000`
+
+### Step 5: Access the Application
+
+Open your web browser and navigate to:
+```
+http://localhost:3000
+```
+
+## 5. Project Structure
+
+```
+uidb/
+├── server/                    # Backend server
+│   ├── index.js             # Express server and API routes
+│   ├── .env                 # Environment variables (create this)
+│   └── env.example          # Environment variables template
+├── src/                      # Frontend source code
+│   ├── components/          # React components
+│   │   ├── Students.tsx    # Student management component
+│   │   ├── Clubs.tsx       # Club management component
+│   │   ├── Memberships.tsx # Membership management component
+│   │   ├── Events.tsx      # Event management component
+│   │   ├── Participation.tsx
+│   │   ├── Sponsors.tsx
+│   │   ├── Budgets.tsx
+│   │   ├── RoomReservations.tsx
+│   │   └── ui/             # Reusable UI components
+│   ├── context/             # React Context
+│   │   └── DataContext.tsx # Global state management
+│   ├── services/           # API service layer
+│   │   └── api.ts         # API client functions
+│   ├── data/               # TypeScript interfaces
+│   │   └── mockData.ts    # Data type definitions
+│   ├── App.tsx             # Main application component
+│   └── main.tsx            # Application entry point
+├── mohamed_amine_aouragh_final_implimentation_init.sql  # Database schema
+├── mohamed_amine_aouragh_final_implimentation_queries.sql       # Additional SQL queries and procedures
+├── package.json            # Project dependencies and scripts
+├── vite.config.ts          # Vite configuration
+└── README.md               # Project documentation
+```
+
+## 6. API Endpoints
+
+The backend provides RESTful API endpoints for all entities:
+
+| Entity | GET | POST | PUT | DELETE |
+|--------|-----|------|-----|--------|
+| Students | `/api/students` | `/api/students` | `/api/students/:id` | `/api/students/:id` |
+| Clubs | `/api/clubs` | `/api/clubs` | `/api/clubs/:id` | `/api/clubs/:id` |
+| Memberships | `/api/memberships` | `/api/memberships` | `/api/memberships/:id` | `/api/memberships/:id` |
+| Events | `/api/events` | `/api/events` | `/api/events/:id` | `/api/events/:id` |
+| Participations | `/api/participations` | `/api/participations` | `/api/participations/:id` | `/api/participations/:id` |
+| Sponsors | `/api/sponsors` | `/api/sponsors` | `/api/sponsors/:id` | `/api/sponsors/:id` |
+| Budgets | `/api/budgets` | `/api/budgets` | `/api/budgets/:id` | `/api/budgets/:id` |
+| Room Reservations | `/api/room-reservations` | `/api/room-reservations` | `/api/room-reservations/:id` | `/api/room-reservations/:id` |
+
+**Health Check Endpoint:**
+- `GET /api/health` - Returns server status
+
+## 7. Database Schema
+
+The database consists of 8 main tables:
+
+1. **Student**: Stores student information (ID, name, email, phone, major, class level)
+2. **Club**: Manages club details (name, description, category, status, creation date)
+3. **Membership**: Links students to clubs with roles and dates
+4. **Event**: Tracks club events (name, date, type, location, budget)
+5. **Participation**: Records student attendance at events
+6. **Sponsor**: Manages sponsor information and club associations
+7. **Budget**: Tracks club financial allocations and spending
+8. **RoomReservation**: Handles room bookings for events
+
+All tables include proper foreign key constraints, check constraints, and referential integrity rules.
+
+## 8. Key Features Implementation
+
+### Data Normalization
+- Automatic conversion of database decimal strings to numbers
+- Date format normalization (ISO to YYYY-MM-DD)
+- Null value handling
+
+### Error Handling
+- Comprehensive error handling in API calls
+- User-friendly error messages in the UI
+- Loading states during data operations
+
+### State Management
+- React Context API for global state
+- Automatic data fetching on application load
+- Real-time UI updates on data changes
+
+## 9. Development Scripts
+
+```bash
+npm run dev          # Start frontend development server
+npm run server       # Start backend server
+npm run dev:server   # Start backend with auto-reload
+npm run build        # Build frontend for production
+npm start            # Alias for npm run server
+```
+
+## 10. Conclusion
+
+The AUI Clubs Management System demonstrates a complete full-stack application with modern web technologies, providing an efficient solution for managing university club activities. The system features a clean architecture, RESTful API design, and an intuitive user interface, making it suitable for production use in an educational institution setting.
